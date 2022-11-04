@@ -9,7 +9,6 @@ public class Main {
          1. Получаем на входе массив чисел
          2. Все четные числа увеличиваем на единицу
          3. Возвращаем кусок списка с 3-го по 7-й элемент*/
-
         System.out.println("Task 1");
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -18,18 +17,17 @@ public class Main {
         System.out.println(list);
 
         try {
-            var newList = getList(list, 3, 7);
+            ConvertToOddList(list);
             System.out.println(list);
-            System.out.println(newList);
-        } catch (Exception e) {
+            System.out.println(getPartOfList(list, 3, 7));
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
         /***
          * Задание 2
          * Дан массив пар названий книг и авторов,
-         * необходимо привести каждую пару в строку вида: «Название книги» И. О. Автора.
-         */
+         * необходимо привести каждую пару в строку вида: «Название книги» И. О. Автора.*/
         System.out.println("Task 2");
         Book book1 = new Book("Книга 1", "Иван", "Иванов", "Иванович");
         Book book2 = new Book("Книга 2", "Петр", "Петров", "Петрович");
@@ -45,27 +43,27 @@ public class Main {
         }
     }
 
-    private static List<Integer> getList(List<Integer> list, int from, int to) {
-        if (list.size() == 0) {
-            throw new RuntimeException("Массив пуст");
-        }
-        if ((from > to) || (to > list.size())) {
-            throw new RuntimeException("Некорректные границы елементов");
-        }
-
-        List<Integer> resultList = new ArrayList<>();
-
+    private static void ConvertToOddList(List<Integer> list) {
         for (int i = 0; i < list.size(); i++) {
             var value = list.get(i);
             if (value != 0 && value % 2 == 0) {
                 value++;
                 list.set(i, value);
             }
-            if (i >= from && i <= to) {
-                resultList.add(value);
-            }
         }
+    }
 
+    private static List<Integer> getPartOfList(List<Integer> list, int indexFrom, int indexTo){
+        if (list.size() == 0) {
+            throw new IllegalArgumentException("Список пуст");
+        }
+        if ((indexFrom > indexTo) || (indexTo > list.size())) {
+            throw new IllegalArgumentException("Некорректные индексы елементов");
+        }
+        List<Integer> resultList = new ArrayList<>();
+        for (int i = indexFrom; i <= indexTo; i++) {
+            resultList.add(list.get(i));
+        }
         return resultList;
     }
 }
