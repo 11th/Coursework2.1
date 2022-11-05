@@ -17,8 +17,7 @@ public class Main {
         System.out.println(list);
 
         try {
-            ConvertToOddList(list);
-            System.out.println(list);
+            System.out.println(convertToOddList(list));
             System.out.println(getPartOfList(list, 3, 7));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -43,14 +42,16 @@ public class Main {
         }
     }
 
-    private static void ConvertToOddList(List<Integer> list) {
+    private static List<Integer> convertToOddList(List<Integer> list) {
+        List<Integer> resultList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             var value = list.get(i);
             if (value != 0 && value % 2 == 0) {
                 value++;
-                list.set(i, value);
             }
+            resultList.add(value);
         }
+        return resultList;
     }
 
     private static List<Integer> getPartOfList(List<Integer> list, int indexFrom, int indexTo){
